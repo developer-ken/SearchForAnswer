@@ -26,6 +26,7 @@ namespace SearchEngine
         {
             public string Name, Author, Provider, Message;
             public int RatelimitPerHour;
+            public Version Version;
         }
     }
 }
