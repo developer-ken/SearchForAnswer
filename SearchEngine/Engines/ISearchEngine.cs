@@ -4,5 +4,6 @@
     {
         public Structs.SearchResult Search(Structs.SearchInput input);
         public Structs.EngineInfo EngineInfo { get; }
+        public bool Loaded { get; }
     }
 }

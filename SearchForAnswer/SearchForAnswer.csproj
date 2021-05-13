@@ -6,4 +6,9 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NativeApi\NativeApi.csproj" />
+    <ProjectReference Include="..\SearchEngine\SearchEngine.csproj" />
+  </ItemGroup>
+
 </Project>

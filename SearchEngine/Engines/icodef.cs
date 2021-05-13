@@ -10,23 +10,28 @@ using System.Threading.Tasks;
 
 namespace SearchEngine.Engines
 {
-    class icodef : ISearchEngine
+    public class icodef : ISearchEngine
     {
-        public Structs.EngineInfo engineInfo;
+        public static Structs.EngineInfo engineInfo;
         public Structs.EngineInfo EngineInfo => engineInfo;
+
+        public bool Loaded => engineInfo.Version > new Version(0, 0, 0, 1);
+
         private const string SearchUrl = "http://cx.icodef.com/wyn-nb?v=2";
         private const string InfoUrl = "http://cx.icodef.com/update?s=wyn2";
         private readonly string Token = "";
 
+
         public icodef(string token = "")
         {
             Token = token;
-            engineInfo = new() { Author = "Dev_ken", Provider = "CXmooc-tool developer Team", Name = "iCodeF 题库", Message = "在线题库由CXmooc-tool developer Team维护\n该在线题库目前并不收取任何费用,请不要滥用/恶意攻击,谢谢!", RatelimitPerHour = -1, Version = new Version(0, 0, 0, 1) };
+            if (engineInfo.Name == null) engineInfo = new() { Author = "Dev_ken", Provider = "CXmooc-tool developer Team", Name = "iCodeF 题库", Message = "在线题库由CXmooc-tool developer Team维护\n该在线题库目前并不收取任何费用,请不要滥用/恶意攻击,谢谢!", RatelimitPerHour = -1, Version = new Version(0, 0, 0, 1) };
 
             new Thread(new ThreadStart(() =>
             {
-                var result_json = (JObject)GET(InfoUrl);
+                var result_json = JObject.Parse(GET(InfoUrl));
                 engineInfo.Version = new Version(result_json.Value<string>("version"));
+                engineInfo.Message = result_json.Value<string>("injection");
             })).Start();
         }
 
@@ -38,7 +43,8 @@ namespace SearchEngine.Engines
                 {"question",input.Keywords},
                 {"type",((int)input.Type).ToString()}
             };
-            var result_json = (JObject)POST(SearchUrl, formData);
+            var strret = POST(SearchUrl, formData);
+            var result_json = JObject.Parse(strret);
             return new() { Answer = result_json.Value<string>("data"), ServerMessage = result_json.Value<string>("msg") };
         }
 
