@@ -35,14 +35,32 @@ namespace SearchForAnswer
             string clipboardtext = Clipboard.GetText();
             new Thread(new ThreadStart(() =>
             {
-                lock (currentEngine)
+                try
                 {
-                    Keywords.Text = clipboardtext;
-                    this.answer.Text = "[正在处理，请不要继续操作...]";
-                    var answer = currentEngine.Search(new() { Keywords = clipboardtext, Type = Structs.QuestionType.Others });
-                    this.answer.Text = answer.Answer;
-                    if (autocopy.Checked)
-                        timer1.Start();
+                    lock (currentEngine)
+                    {
+                        Keywords.Text = clipboardtext;
+                        this.answer.Text = "[正在处理，请不要继续操作...]";
+                        if (currentEngine.EngineInfo.NeedLogin)
+                        {
+                            var loginEngine = (ILoginSearchEngine)currentEngine;
+                            var loginform = new Login(loginEngine.Captcha(currentEngine.EngineInfo.LoginInfo));
+                            loginform.ShowDialog();
+                            loginform.Dispose();
+                            if (!loginEngine.Login(loginform.Username, loginform.Password, loginform.Captcha))
+                            {
+                                throw new Exception("无法登录到搜题引擎");
+                            }
+                        }
+                        var answer = currentEngine.Search(new() { Keywords = clipboardtext, Type = Structs.QuestionType.Others });
+                        this.answer.Text = answer.Answer;
+                        if (autocopy.Checked)
+                            timer1.Start();
+                    }
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show("您选择的搜题引擎出现了一处错误。\n" + err.Message + "\n" + err.StackTrace, "搜题引擎无法运行");
                 }
             })).Start();
         }
@@ -85,18 +103,31 @@ namespace SearchForAnswer
                 {
                     try
                     {
+                        EngineSelection.Enabled = false;
                         EngineName.Text = currentEngine.EngineInfo.Name;
                         EngineProvider.Text = currentEngine.EngineInfo.Provider;
                         EngineVersion.Text = currentEngine.EngineInfo.Version.ToString();
                         EngineMessages.Text = currentEngine.EngineInfo.Message;
+                        if (currentEngine.EngineInfo.NeedLogin)
+                        {
+                            var loginEngine = (ILoginSearchEngine)currentEngine;
+                            var loginform = new Login(loginEngine.Captcha(currentEngine.EngineInfo.LoginInfo));
+                            loginform.ShowDialog();
+                            loginform.Dispose();
+                            if (!loginEngine.Login(loginform.Username, loginform.Password, loginform.Captcha))
+                            {
+                                throw new Exception("无法登录到搜题引擎");
+                            }
+                        }
                         while (!currentEngine.Loaded) Thread.Sleep(0);
                         run.Enabled = currentEngine.Loaded;
                         EngineVersion.Text = currentEngine.EngineInfo.Version.ToString();
                         EngineMessages.Text = currentEngine.EngineInfo.Message;
+                        EngineSelection.Enabled = true;
                     }
                     catch (Exception err)
                     {
-                        MessageBox.Show("您选择的答题引擎出现了一处错误。\n" + err.Message + "\n" + err.StackTrace, "无法加载选择的答题引擎");
+                        MessageBox.Show("您选择的搜题引擎出现了一处错误。\n" + err.Message + "\n" + err.StackTrace, "无法加载选择的搜题引擎");
                     }
                 }
             })).Start();
