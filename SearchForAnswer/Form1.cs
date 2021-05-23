@@ -18,14 +18,15 @@ namespace SearchForAnswer
     {
         public event MethodInvoker onClipboardUpdate;
         public ISearchEngine currentEngine;
-
+        private Point BoxDefLoc;
+        private Size WindowDefSize;
         public Form1()
         {
             InitializeComponent();
             onClipboardUpdate += Form1_onClipboardUpdate;
             CheckForIllegalCrossThreadCalls = false;
-            searchbox.Location = new Point(13, 166);
-            Size = new Size(768, 468);
+            BoxDefLoc = searchbox.Location;
+            WindowDefSize = Size;
         }
 
         private void Form1_onClipboardUpdate()
@@ -147,13 +148,13 @@ namespace SearchForAnswer
         {
             if (lessinfo.Checked)
             {
-                searchbox.Location = new Point(13, 12);
-                Size = new Size(768, 314);
+                searchbox.Location = new Point(label1.Location.X, EngineSelection.Location.Y);
+                Size = new Size(WindowDefSize.Width, searchbox.Size.Height + searchbox.Location.Y + (WindowDefSize.Height-(BoxDefLoc.Y+searchbox.Size.Height)));
             }
             else
             {
-                searchbox.Location = new Point(13, 166);
-                Size = new Size(768, 468);
+                searchbox.Location = BoxDefLoc;
+                Size = WindowDefSize;
             }
         }
 
