@@ -53,6 +53,7 @@ namespace SearchForAnswer
             this.Keywords = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.searchbox.SuspendLayout();
             this.SuspendLayout();
@@ -208,6 +209,7 @@ namespace SearchForAnswer
             // 
             // searchbox
             // 
+            this.searchbox.Controls.Add(this.checkBox1);
             this.searchbox.Controls.Add(this.lessinfo);
             this.searchbox.Controls.Add(this.checkBox2);
             this.searchbox.Controls.Add(this.autocopy);
@@ -305,6 +307,18 @@ namespace SearchForAnswer
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(7, 117);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(75, 21);
+            this.checkBox1.TabIndex = 10;
+            this.checkBox1.Text = "强制粘贴";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -364,6 +378,7 @@ namespace SearchForAnswer
         private System.Windows.Forms.CheckBox autocopy;
         private System.Windows.Forms.CheckBox lessinfo;
         public System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

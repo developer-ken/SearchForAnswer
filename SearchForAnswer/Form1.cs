@@ -164,5 +164,10 @@ namespace SearchForAnswer
             Clipboard.SetText(this.answer.Text);
             timer1.Stop();
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
