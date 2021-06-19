@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchForAnswer", "SearchFo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchEngine", "SearchEngine\SearchEngine.csproj", "{323E984E-2298-4D60-A080-83FEF1BF0DAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeApi", "NativeApi\NativeApi.csproj", "{F79D8DC6-7D26-482A-9DA1-48A97A3A8DCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NativeApi", "NativeApi\NativeApi.csproj", "{F79D8DC6-7D26-482A-9DA1-48A97A3A8DCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataImporter", "DataImporter\DataImporter.csproj", "{14220294-314B-461F-98AD-E18A5FAF2C74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F79D8DC6-7D26-482A-9DA1-48A97A3A8DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F79D8DC6-7D26-482A-9DA1-48A97A3A8DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F79D8DC6-7D26-482A-9DA1-48A97A3A8DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14220294-314B-461F-98AD-E18A5FAF2C74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14220294-314B-461F-98AD-E18A5FAF2C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14220294-314B-461F-98AD-E18A5FAF2C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14220294-314B-461F-98AD-E18A5FAF2C74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

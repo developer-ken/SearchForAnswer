@@ -92,9 +92,14 @@ namespace SearchForAnswer
             base.WndProc(ref m);
         }
 
+        private void ShowMsgBox(string msgbox)
+        {
+            MessageBox.Show("来自搜题引擎的消息：\n" + msgbox, "搜题引擎可能需要进一步操作");
+        }
+
         private void EngineSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            EngineLib.Msgbox = ShowMsgBox;
             if (EngineSelection.SelectedItem != null)
                 currentEngine = EngineLib.Get(EngineSelection.SelectedItem.ToString());
             run.Enabled = currentEngine.Loaded;
@@ -149,7 +154,7 @@ namespace SearchForAnswer
             if (lessinfo.Checked)
             {
                 searchbox.Location = new Point(label1.Location.X, EngineSelection.Location.Y);
-                Size = new Size(WindowDefSize.Width, searchbox.Size.Height + searchbox.Location.Y + (WindowDefSize.Height-(BoxDefLoc.Y+searchbox.Size.Height)));
+                Size = new Size(WindowDefSize.Width, searchbox.Size.Height + searchbox.Location.Y + (WindowDefSize.Height - (BoxDefLoc.Y + searchbox.Size.Height)));
             }
             else
             {
